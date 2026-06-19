@@ -19,7 +19,7 @@ El código fuente y los archivos de texto de las instancias deben residir exacta
 1. Abrir la terminal o consola de comandos.
 2. Navegar al directorio que contiene los archivos.
 3. Ejecutar el script mediante el comando:
-   `py DarioFuentes_VicenteMartinez_VRP.py`
+   `py DarioFuentes_VicenteMartinez_VRP.py` o sino `python DarioFuentes_VicenteMartinez_VRP.py`
 
 El programa procesará las 3 instancias secuencialmente y emitirá los resultados finales en la salida estándar de la consola.
 
