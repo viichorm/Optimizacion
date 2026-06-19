@@ -1,91 +1,58 @@
-## Descripcion general
+# Tarea 2 Metaheurísticas - Algoritmo Genético para CVRP
 
-Este proyecto resuelve el problema de Ruteo de Vehiculos con Capacidad
-(CVRP) utilizando un Algoritmo Genetico (AG) con representacion de tipo
-Giant Tour (Esquema Entero / IES).
+## Integrantes
+- Vicente Martínez | RUT: 21.839.146-K
+- Dario Fuentes | RUT: 21.862.824-9 
 
+## Requisitos del Sistema
+- Python 3.x
+- Librerías estándar: `math`, `random`, `time`. No requiere dependencias externas.
 
-## Estructura del codigo
+## Estructura del Directorio
+El código fuente y los archivos de texto de las instancias deben residir exactamente en la misma carpeta.
+- `DarioFuentes_VicenteMartinez_VRP.py`
+- `01_facil.txt`
+- `02_medio.txt`
+- `03_dificil.txt`
 
-- `estructura.py`: Estructuras de datos del problema y del AG
-  (InstanciaCVRP, Vehiculo, Individuo, generacion de poblacion inicial, etc.)
-- `codigo.py`: Script principal de ejecucion (carga las instancias,
-  construye la poblacion inicial, evalua fitness, y --proximamente--
-  ejecuta el bucle evolutivo completo)
-- `01_facil.txt`, `02_medio.txt`, `03_dificil.txt`: instancias del problema
-  (formato TSPLIB/CVRPLIB)
+## Instrucciones de Ejecución
+1. Abrir la terminal o consola de comandos.
+2. Navegar al directorio que contiene los archivos.
+3. Ejecutar el script mediante el comando:
+   `py DarioFuentes_VicenteMartinez_VRP.py`
 
-
-## Instrucciones de ejecucion
-
-Requisitos: Python 3 (no requiere librerias externas, solo modulos
-estandar: `math`, `random`, `heapq`, `os`).
-
-1. Colocar los archivos `01_facil.txt`, `02_medio.txt` y `03_dificil.txt`
-   en la misma carpeta que `codigo.py` y `estructura.py` (o ajustar la
-   variable `CarpetaInstancias` al inicio de `codigo.py` con la ruta
-   correspondiente).
-
-2. Ejecutar desde la terminal:
-
-   ```
-   python3 codigo.py
-   ```
-
-3. El script imprime, para cada instancia:
-   - Resumen de la instancia (nodos, capacidad, demanda total, vehiculos
-     minimos requeridos)
-   - Estadisticas de la poblacion inicial del AG (mejor fitness, fitness
-     promedio, individuos factibles, etc.)
+El programa procesará las 3 instancias secuencialmente y emitirá los resultados finales en la salida estándar de la consola.
 
 
-## Referencias / inspiracion metodologica
 
-El esquema de codificacion (Giant Tour / IES), la estrategia de manejo de
-restricciones mediante penalizacion, y algunos parametros del AG fueron
-inspirados en el siguiente trabajo academico (no se reutilizo codigo de
-este trabajo, solo conceptos metodologicos):
-
-> Lima, S. J. A., Araujo, S. A. (2020). "Genetic Algorithm Applied to the
-> Capacitated Vehicle Routing Problem: An Analysis of the Influence of
-> Different Encoding Schemes on the Population Behavior". American
-> Scientific Research Journal for Engineering, Technology, and Sciences
-> (ASRJETS), 73(1), 96-110.
-
-
-## Estado del proyecto (checklist)
-
-### Listo
-
-**Estructuras de datos (base)**
-- [x] Parser de instancias CVRP (formato TSPLIB) - `LeerInstanciaCVRP`
-- [x] Matriz de distancias (adjacency matrix)
-- [x] Listas paralelas de demandas y coordenadas
-- [x] Arreglo de vehiculos (`Vehiculo`, `CrearFlota`)
-
-**Algoritmo Genetico - Representacion y Poblacion**
-- [x] Representacion: Giant Tour (Esquema Entero / IES)
-- [x] Decodificacion de cromosoma a rutas reales (llenado por capacidad)
-- [x] Generacion de poblacion inicial (semi-aleatoria con vecino mas cercano)
-- [x] Funcion de fitness con penalizacion (exceso de vehiculos sobre flota disponible)
-- [x] Validado y probado con las 3 instancias (Facil, Medio, Dificil)
-
-### Falta
-
-**Bucle evolutivo (el AG propiamente dicho) - PENDIENTE: [NOMBRE RESPONSABLE]**
-- [ ] Operador de seleccion (ruleta)
-- [ ] Operador de cruce - Order Crossover (OX), apto para permutaciones
-- [ ] Operador de mutacion - swap mutation
-- [ ] Elitismo
-- [ ] Bucle de generaciones con criterio de parada
-- [ ] Registro del historial de fitness por generacion (para graficar convergencia)
-
-**Experimentacion (requerido por la Tarea 2)**
-- [ ] Definir y declarar el presupuesto computacional (tiempo limite o N de evaluaciones)
-- [ ] Capturar el valor de `COMMENT` del archivo (optimo/mejor conocido) para calcular el GAP
-- [ ] Ejecutar 10 corridas por instancia, calcular media y desviacion estandar
-- [ ] Generar graficos (ej. boxplots) de los resultados
-
-**Entregables de codigo (requisitos formales de la tarea)**
-- [ ] Completar nombre y RUT de todos los integrantes en este README
-- [ ] Revisar referencia al paper en la seccion de implementacion del informe
+============================================================
+## PARÁMETROS DEL ALGORITMO
+============================================================
+ 
+*  Población inicial        : 35.700 individuos aleatorios
+*  SLS - individuos         : 35.700 (todos pasan por SLS)
+*  SLS - iteraciones c/u    : 100
+*  AG - Mu (padres)         : 600
+*  AG - Lambda (hijos)      : 1000
+*  AG - Generaciones        : 2500
+*  AG - Tasa de mutación    : 0.15 (15%)
+*  AG - Reinyección periód. : cada 50 gen, reemplaza 20% de Mu
+*  AG - Reinyección emerg.  : tras 100 gen sin mejora, 40% de Mu
+ 
+============================================================
+## ESTRUCTURA DEL CÓDIGO
+============================================================
+ 
+*  BLOQUE 1  - Clase Vehiculo
+*  BLOQUE 2  - Clase InstanciaCVRP
+*  BLOQUE 3  - Lectura de archivo (formato TSPLIB)
+*  BLOQUE 4  - Generación de población inicial aleatoria
+*  BLOQUE 5  - Decodificador (permutación → rutas)
+*  BLOQUE 6  - Cálculo de distancia total y fitness
+*  BLOQUE 7  - Operadores genéticos (OX, Swap, Inserción)
+*  BLOQUE 8  - Búsqueda Local Estocástica (SLS)
+*  BLOQUE 9  - Ciclo del Algoritmo Genético (mu + lambda)
+*  BLOQUE 10 - Impresión de resultados
+*  BLOQUE 11 - Main (parámetros y ejecución)
+ 
+============================================================
