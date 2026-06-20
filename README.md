@@ -22,37 +22,37 @@ El código fuente y los archivos de texto de las instancias deben residir exacta
    `py DarioFuentes_VicenteMartinez_VRP.py` o sino `python DarioFuentes_VicenteMartinez_VRP.py`
 
 El programa procesará las 3 instancias secuencialmente y emitirá los resultados finales en la salida estándar de la consola.
-
-
-
 ============================================================
 ## PARÁMETROS DEL ALGORITMO
 ============================================================
- 
-*  Población inicial        : 35.700 individuos aleatorios
-*  SLS - individuos         : 35.700 (todos pasan por SLS)
-*  SLS - iteraciones c/u    : 100
-*  AG - Mu (padres)         : 600
-*  AG - Lambda (hijos)      : 1000
-*  AG - Generaciones        : 2500
-*  AG - Tasa de mutación    : 0.15 (15%)
-*  AG - Reinyección periód. : cada 50 gen, reemplaza 20% de Mu
-*  AG - Reinyección emerg.  : tras 100 gen sin mejora, 40% de Mu
- 
+
+*  Presupuesto por ejecución : 35.700 evaluaciones (tope duro)
+*  Población inicial         : 300 individuos aleatorios
+*  SLS - individuos (TopN)   : 40 (los 40 mejores pasan por SLS)
+*  SLS - iteraciones c/u     : 25
+*  AG - Mu (padres)          : 25
+*  AG - Lambda (hijos)       : 70
+*  AG - Generaciones (tope)  : 100.000 (el presupuesto corta antes)
+*  AG - Tasa de mutación     : 0.15 (15%)
+*  AG - Reinyección periód.  : cada 40 gen, reemplaza 20% de Mu
+*  AG - Reinyección emerg.   : tras 50 gen sin mejora, 40% de Mu
+*  Repeticiones por instancia: 10 ejecuciones (semillas distintas)
+
 ============================================================
 ## ESTRUCTURA DEL CÓDIGO
 ============================================================
- 
-*  BLOQUE 1  - Clase Vehiculo
-*  BLOQUE 2  - Clase InstanciaCVRP
-*  BLOQUE 3  - Lectura de archivo (formato TSPLIB)
-*  BLOQUE 4  - Generación de población inicial aleatoria
-*  BLOQUE 5  - Decodificador (permutación → rutas)
-*  BLOQUE 6  - Cálculo de distancia total y fitness
-*  BLOQUE 7  - Operadores genéticos (OX, Swap, Inserción)
-*  BLOQUE 8  - Búsqueda Local Estocástica (SLS)
-*  BLOQUE 9  - Ciclo del Algoritmo Genético (mu + lambda)
-*  BLOQUE 10 - Impresión de resultados
-*  BLOQUE 11 - Main (parámetros y ejecución)
- 
+
+*  Control de presupuesto    - Contador global de evaluaciones (corte en 35.700)
+*  Clase Vehiculo            - Representación de un vehículo
+*  Clase InstanciaCVRP       - Lectura y parseo (formato TSPLIB)
+*  Generación de población   - Individuos iniciales aleatorios
+*  Decodificador             - Permutación → rutas (respeta capacidad)
+*  Distancia y fitness       - Función objetivo y evaluación
+*  Operadores genéticos      - Cruce OX, mutación Swap e Inserción
+*  Búsqueda Local Estocástica (SLS) - Mejora la población inicial
+*  Ciclo del Algoritmo Genético (mu + lambda) - Evolución con reinyecciones
+*  Impresión de resultados   - Mejor solución por instancia
+*  Experimento multi-semilla - 10 corridas, guarda CSV
+*  Main                      - Parámetros y ejecución
+
 ============================================================
